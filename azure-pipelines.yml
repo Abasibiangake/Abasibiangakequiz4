@@ -8,41 +8,40 @@ trigger:
 
 
 pool:
- name: quiz4abasspool
- demands:
- - msbuild
- - visualstudio
- - vstest
-
+  name: quiz4abasspool
+  demands:
+  - msbuild
+  - visualstudio
+  - vstest
 
 variables:
- buildConfiguration: 'Release'
- solution: '**/*.sln'
- artifactName: 'Abasibiangakequiz4'
+  buildConfiguration: 'Release'
+  solution: '**/*.sln'
+  artifactName: 'Abasibiangakequiz4'
 
 
 steps:
 - task: DotNetCoreCLI@2
- displayName: 'Restore NuGet packages'
- inputs:
-   command: 'restore'
-   projects: '$(solution)'
-   feedsToUse: 'select'
+  displayName: 'Restore NuGet packages'
+  inputs:
+    ommand: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
 
 
 - task: DotNetCoreCLI@2
- displayName: 'Build application'
- inputs:
-   command: 'build'
-   projects: '$(solution)'
-   arguments: '--configuration $(buildConfiguration)'
+  displayName: 'Build application'
+  inputs:
+    command: 'build'
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration)'
 
 
 - task: DotNetCoreCLI@2
- displayName: 'Publish application'
- inputs:
-   command: 'publish'
-   projects: '**/*.csproj'
-   publishWebProjects: false
-   arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(artifactName)'
+  displayName: 'Publish application'
+  inputs:
+    command: 'publish'
+    projects: '**/*.csproj'
+    publishWebProjects: false
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(artifactName)'
 
